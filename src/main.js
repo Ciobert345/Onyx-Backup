@@ -350,8 +350,8 @@ function registerIpcHandlers() {
     ipcMain.handle('getLogs', async () => {
         try {
             const fs = require('fs-extra');
-            // MATCH logger.js: Use process.cwd() for logs to match the current logger configuration
-            const logPath = path.join(process.cwd(), 'logs', 'app.log');
+            // MATCH logger.js: Use userData for logs
+            const logPath = path.join(app.getPath('userData'), 'logs', 'app.log');
             if (await fs.pathExists(logPath)) {
                 const content = await fs.readFile(logPath, 'utf8');
                 // Return last 50 lines
