@@ -2,8 +2,6 @@
 
 A modern, high-performance desktop application for backup, synchronization, and system monitoring. Built with **Electron**, **React**, and **Node.js**, designed with a premium dark aesthetics using TailwindCSS.
 
-![Onyx Backup](src/assets/icon.png)
-
 ## 🚀 Features
 
 ### data Protection
