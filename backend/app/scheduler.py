@@ -14,10 +14,14 @@ from .ws import notifications_manager
 
 def _platform_action_cmd(action: str) -> list[str]:
     if os.name == "nt":
+        if action == "restart":
+            return ["shutdown", "/r", "/t", "0"]
         return ["shutdown", "/h"] if action == "hibernate" else ["shutdown", "/s", "/t", "0"]
     # posix
     if action == "hibernate":
         return ["systemctl", "suspend"] if os.uname().sysname == "Linux" else ["pmset", "sleepnow"]
+    if action == "restart":
+        return ["reboot"] if os.uname().sysname == "Linux" else ["sudo", "shutdown", "-r", "now"]
     return ["systemctl", "poweroff"] if os.uname().sysname == "Linux" else ["sudo", "shutdown", "-h", "now"]
 
 
@@ -39,7 +43,8 @@ class PowerScheduler:
 
         async def job():
             # 5 min countdown notifications
-            for seconds in (300, 120, 60, 30, 10):
+            checkpoints = [300, 120, 60, 30, 10]
+            for i, seconds in enumerate(checkpoints):
                 evt = {"type": "power_countdown", "job_id": job_id, "seconds": seconds}
                 if self.notify:
                     try:
@@ -47,11 +52,19 @@ class PowerScheduler:
                     except Exception:
                         pass
                 await notifications_manager.broadcast(evt)
-                await asyncio.sleep(300 - seconds if seconds == 300 else seconds)
+                
+                # Sleep until next checkpoint or end
+                next_sleep = seconds
+                if i < len(checkpoints) - 1:
+                    next_sleep = seconds - checkpoints[i+1]
+                
+                await asyncio.sleep(next_sleep)
+
             # Execute command
             import subprocess
 
             cmd = _platform_action_cmd(action)
+            await asyncio.sleep(1) # small buffer 
             evt_exec = {"type": "power_execute", "job_id": job_id, "cmd": cmd}
             if self.notify:
                 try:

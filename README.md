@@ -1,5 +1,7 @@
 # Onyx Backup Dashboard
 
+![Onyx Backup UI](UI-image.png)
+
 A modern, high-performance desktop application for backup, synchronization, and system monitoring. Built with **Electron**, **React**, and **Node.js**, designed with a premium dark aesthetics using TailwindCSS.
 
 <img width="2665" height="1641" alt="UI-image" src="https://github.com/user-attachments/assets/6f2ea908-45f8-4c6e-90ab-f93efec5dcf4" />
