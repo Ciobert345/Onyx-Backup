@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+body { font-family: theme('fontFamily.sans'); }
+
+.glass {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 0 20px rgba(255,255,255,0.06);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+}
+
+/* Custom Time Input Styling */
+input[type="time"].time-input {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+  color-scheme: dark !important;
+  background-color: rgba(30, 30, 30, 0.8);
+}
+
+/* Show calendar picker indicator - white icon */
+input[type="time"].time-input::-webkit-calendar-picker-indicator {
+  display: block;
+  cursor: pointer;
+  opacity: 0.9;
+  filter: brightness(0) invert(1);
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  background-color: transparent;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+input[type="time"].time-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  filter: brightness(0) invert(1) drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+
+/* Force dark theme for time picker popup */
+input[type="time"].time-input:focus {
+  color-scheme: dark !important;
+}
+
+/* Style the time edit fields */
+input[type="time"].time-input::-webkit-datetime-edit-hour-field:focus,
+input[type="time"].time-input::-webkit-datetime-edit-minute-field:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  outline: none;
+  color: rgb(255, 255, 255);
+}
+
+input[type="time"].time-input::-webkit-datetime-edit-text {
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0 4px;
+  font-weight: 500;
+}
+
+input[type="time"].time-input::-webkit-datetime-edit-hour-field,
+input[type="time"].time-input::-webkit-datetime-edit-minute-field {
+  color: rgb(255, 255, 255);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  cursor: text;
+}
+
+input[type="time"].time-input::-webkit-datetime-edit-hour-field:hover,
+input[type="time"].time-input::-webkit-datetime-edit-minute-field:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+input[type="time"].time-input::-webkit-datetime-edit-ampm-field {
+  display: none;
+}
+
+/* Firefox time input styling */
+input[type="time"].time-input::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Remove spinner arrows in Firefox */
+input[type="time"].time-input::-webkit-inner-spin-button,
+input[type="time"].time-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="time"].time-input[type="number"]::-webkit-inner-spin-button,
+input[type="time"].time-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

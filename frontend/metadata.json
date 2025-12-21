@@ -1,0 +1,5 @@
+{
+  "name": "Onyx Backup",
+  "description": "A modern, monochromatic, dark-themed backup and power management utility dashboard designed for Windows/Electron integration.",
+  "requestFramePermissions": []
+}
